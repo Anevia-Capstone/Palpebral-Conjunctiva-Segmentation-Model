@@ -33,21 +33,16 @@ Palpebral-Conjunctiva-Segmentation-Model/Run_model
 ````
 
 ### 4. Jalankan Model
-Pastikan environment Python kamu sudah ter-install dependensi yang diperlukan, lalu jalankan script seperti biasa:
+Pastikan environment Python kamu sudah ter-install dependensi yang diperlukan:
 
 ```bash
-python Eye_and_Conjunctiva_Segmentation.ipynb
+pip install -r requirements.txt
 ````
 
 ---
 **Catatan:**
-Jika kamu mengubah nama model atau lokasi folder, sesuaikan path-nya di script Python.
+Jalankan kodenya
 
 ```
-model.load_state_dict(torch.load("best.pt"))
-```
-
-```
-
-Kalau kamu juga butuh versi Bahasa Indonesia atau auto-deteksi sistem operasi untuk otomatis download, aku bisa bantu tambahkan [versi lokalnya](f) atau [kode Python download otomatis](f).
+python main.py
 ```
