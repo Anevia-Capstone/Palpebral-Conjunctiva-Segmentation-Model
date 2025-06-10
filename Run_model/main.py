@@ -1,45 +1,62 @@
+import torch
+import os
 import cv2
+import torch
 import numpy as np
-from ultralytics import YOLO
-import matplotlib.pyplot as plt
-from tkinter import Tk, filedialog
+import albumentations as A
+from albumentations.pytorch import ToTensorV2
+from torchvision import models
+import torch.nn as nn
 
-# Buka file dialog untuk pilih gambar
-Tk().withdraw()  # Sembunyikan jendela utama Tkinter
-img_path = filedialog.askopenfilename(title="Pilih Gambar")
+IMAGE_PATH = "contoh_gambar.png" 
+MODEL_PATH = "ModelSegmentasi.pt"
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# Load model
-model = YOLO("best.pt")  # ganti path model kamu
+transform = A.Compose([
+    A.Resize(512, 512),
+    A.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+    ToTensorV2()
+])
+def infer_single_image(image_path, model_path):
+    image = cv2.imread(image_path)
+    if image is None:
+        raise FileNotFoundError(f"Gambar tidak ditemukan: {image_path}")
+    original = image.copy()
+    image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
-# Inference
-results = model(img_path, save=False, verbose=False)[0]
+    transformed = transform(image=image_rgb)
+    input_tensor = transformed["image"].unsqueeze(0).to(DEVICE)
 
-# Baca gambar asli
-img = cv2.imread(img_path)
+    # Load TorchScript model
+    model = torch.jit.load(model_path, map_location=DEVICE).to(DEVICE)
+    model.eval()
 
-found = False
-for j, mask in enumerate(results.masks.data):
-    class_id = int(results.boxes.cls[j].item())
-    if model.names[class_id] != 'conjunctiva':
-        continue
+    with torch.no_grad():
+        output = model(input_tensor)
+        mask_pred = torch.sigmoid(output).squeeze().cpu().numpy()
 
-    found = True
-    binary_mask = mask.cpu().numpy().astype(np.uint8) * 255
-    x, y, w, h = cv2.boundingRect(binary_mask)
-    img_crop = img[y:y+h, x:x+w]
-    mask_crop = binary_mask[y:y+h, x:x+w]
-    segmented = cv2.bitwise_and(img_crop, img_crop, mask=mask_crop)
-    
-    filename = f"hasil_conj_{j}.png"
-    cv2.imwrite(filename, segmented)
+    mask_binary = (mask_pred > 0.5).astype(np.uint8) * 255
+    mask_resized = cv2.resize(mask_binary, (original.shape[1], original.shape[0]))
 
-    # Tampilkan hasil
-    plt.figure()
-    plt.imshow(cv2.cvtColor(segmented, cv2.COLOR_BGR2RGB))
-    plt.title(f"Hasil Segmentasi Konjungtiva {j+1}")
-    plt.axis('off')
+    overlay = original.copy()
+    overlay[mask_resized > 0] = [0, 255, 0]
+    blended = cv2.addWeighted(original, 0.7, overlay, 0.3, 0)
 
-if not found:
-    print("Tidak ditemukan kelas 'conjunctiva' pada gambar.")
-else:
-    plt.show()
+    # Save results
+    mask_out_path = image_path.replace(".jpg", "_mask512.jpg")
+    overlay_out_path = image_path.replace(".jpg", "_overlay512.jpg")
+    segmented_out_path = image_path.replace(".jpg", "_segmented512.png")
+
+    cv2.imwrite(mask_out_path, mask_resized)
+    cv2.imwrite(overlay_out_path, blended)
+
+    segmented_rgba = cv2.cvtColor(original, cv2.COLOR_BGR2BGRA)
+    segmented_rgba[:, :, 3] = mask_resized
+    cv2.imwrite(segmented_out_path, segmented_rgba)
+
+    print(f"Hasil segmented transparan: {segmented_out_path}")
+    print(f"Hasil mask: {mask_out_path}")
+    print(f"Hasil overlay: {overlay_out_path}")
+
+infer_single_image(IMAGE_PATH, MODEL_PATH)
+
