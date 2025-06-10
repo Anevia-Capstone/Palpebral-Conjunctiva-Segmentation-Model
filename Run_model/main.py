@@ -8,7 +8,7 @@ from albumentations.pytorch import ToTensorV2
 from torchvision import models
 import torch.nn as nn
 
-IMAGE_PATH = "contoh_gambar.png" 
+IMAGE_PATH = "contoh_gambar.jpg" 
 MODEL_PATH = "ModelSegmentasi.pt"
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
