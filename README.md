@@ -41,18 +41,6 @@ Proyek ini bertujuan untuk membuat model segmentasi otomatis menggunakan arsitek
 3. Menyediakan visualisasi hasil segmentasi dan overlay masker.
 4. Menyimpan model terbaik untuk inferensi baru dan implementasi di lingkungan nyata.
 
-### **Solution Approach**
-
-Dalam konteks proyek ini, tidak ada dua pendekatan rekomendasi karena proyek bersifat *image segmentation*. Namun jika Anda ingin menyambung ke sistem rekomendasi misalnya untuk pemilihan model terbaik, pendekatan yang mungkin adalah:
-
-#### 1. Content-Based Filtering
-Model dipilih berdasarkan karakteristik input gambar (seperti resolusi, cahaya, dll.) dan output yang dihasilkan (IoU, Dice, dll.).
-
-#### 2. Collaborative Filtering
-Rekomendasi model dilakukan berdasarkan performa relatif model sebelumnya terhadap dataset serupa dari repository lain (misalnya PyPI, GitHub, HuggingFace).
-
-Namun dalam kasus ini, fokus utama adalah pembuatan dan evaluasi model segmentasi.
-
 ---
 
 ## Data Understanding
