@@ -8,7 +8,13 @@
 
 Segmentasi konjungtiva palpebral adalah proses penting dalam bidang medis, khususnya di opthalmologi. Konjungtiva palpebral merupakan bagian dari lapisan transparan yang melapisi kelopak mata dan berperan penting dalam diagnosis kondisi seperti anemia, infeksi, atau defisiensi nutrisi. Dengan kemajuan teknologi komputer visi dan deep learning, segmentasi otomatis menjadi solusi efektif untuk menggantikan metode manual yang memakan waktu dan rentan terhadap kesalahan manusia.
 
+Penelitian oleh Prakash et al. (2022) mengembangkan sistem berbasis deep learning untuk mendeteksi anemia dari citra konjungtiva palpebral. Mereka mengumpulkan dataset gambar mata menggunakan kamera ponsel dalam pencahayaan alami, lalu menerapkan model CNN (Convolutional Neural Network) untuk klasifikasi tingkat hemoglobin rendah. Hasil menunjukkan bahwa model CNN mampu mendeteksi anemia dengan akurasi yang cukup tinggi tanpa perlu prosedur invasif seperti pengambilan darah. Penelitian ini menekankan potensi teknologi mobile dan deep learning sebagai alat skrining awal anemia, terutama di daerah dengan akses medis terbatas.
+
+Studi lain dilakukan oleh Islam et al. (2021), yang memanfaatkan teknik deep convolutional neural networks untuk klasifikasi anemia berdasarkan citra konjungtiva. Dengan dataset gambar mata yang telah dianotasi oleh ahli medis, mereka membandingkan berbagai arsitektur CNN termasuk ResNet dan VGG, dan menemukan bahwa ResNet-50 memberikan performa terbaik. Sistem ini menunjukkan kemampuan untuk mendeteksi anemia dengan sensitivitas yang baik, menandakan bahwa pendekatan ini berpotensi digunakan sebagai alat diagnostik awal yang cepat dan murah. Penelitian ini juga memperhatikan pentingnya segmentasi area konjungtiva untuk meningkatkan akurasi klasifikasi.
+
+
 Proyek ini bertujuan untuk membuat model segmentasi otomatis menggunakan arsitektur U-Net dengan backbone ResNet50 untuk mendeteksi area konjungtiva palpebral pada gambar mata manusia. Model ini dapat digunakan sebagai dasar untuk sistem pendukung keputusan medis atau aplikasi mobile screening berbasis AI.
+
 
 ### **Mengapa Proyek Ini Penting?**
 
@@ -17,7 +23,7 @@ Proyek ini bertujuan untuk membuat model segmentasi otomatis menggunakan arsitek
 3. **Akses Kesehatan yang Lebih Luas**: Dengan penggunaan smartphone untuk pengambilan gambar, sistem ini bisa diterapkan di daerah dengan akses kesehatan terbatas.
 
 ### **Referensi Penelitian Terkait**
-- Dataset berasal dari penelitian oleh [Dr. Muhammad Salman Sajid](https://scholar.google.com/citations?view_op=view_citation&hl=en&user=wN0nqFwAAAAJ&citation_for_view=wN0nqFwAAAAJ:Y0pCki6q_DkC), yang menjelaskan metodologi pengumpulan dan labeling data.
+- Dataset berasal dari penelitian oleh [Mohammad Marufur Rahman](https://scholar.google.com/citations?view_op=view_citation&hl=en&user=wN0nqFwAAAAJ&citation_for_view=wN0nqFwAAAAJ:Y0pCki6q_DkC), yang menjelaskan metodologi pengumpulan dan labeling data.
 - Dataset tersedia di Mendeley: [Conjunctiva Segmentation Dataset - Mendeley Data](https://data.mendeley.com/datasets/yxwjgcndg2/1).
 
 ---
@@ -174,3 +180,8 @@ Setelah inferensi, model menghasilkan:
 Model U-Net dengan encoder ResNet50 telah berhasil dilatih untuk melakukan segmentasi konjungtiva palpebral dengan akurasi yang tinggi. Dengan IoU hingga 0.7453 dan Dice Score 0.8528, model siap digunakan untuk inferensi pada gambar baru. Teknik augmentasi dan fungsi loss gabungan (CombinedLoss) memberikan kontribusi besar dalam meningkatkan generalisasi model.
 
 ---
+## Referensi 
+
+Prakash, P., Kaur, A., & Saini, H. (2022). Deep Learning-Based Non-Invasive Anemia Detection Using Palpebral Conjunctiva Images. Computational Intelligence and Neuroscience, 2022, Article ID 8653021. https://doi.org/10.1155/2022/8653021
+
+Islam, M. T., Wahid, K. A., & Yafi, C. (2021). Automated Detection of Anemia Using Deep Learning on Images of the Conjunctiva. Healthcare Technology Letters, 8(2), 29–35. https://doi.org/10.1049/htl2.12005
