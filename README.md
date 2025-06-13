@@ -158,7 +158,6 @@ Setelah Training, model menghasilkan:
 ### **Hasil Inferensi**
 Setelah inferensi, model menghasilkan:
 ![image](https://github.com/user-attachments/assets/a1440896-7a3e-4a65-a9a4-c67aff34770e)
-
 ![image](https://github.com/user-attachments/assets/e171ae32-2b2d-4cf6-bd04-935ebd376a8c)
 
 
