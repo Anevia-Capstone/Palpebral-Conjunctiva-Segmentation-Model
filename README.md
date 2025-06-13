@@ -152,11 +152,15 @@ class CombinedLoss(nn.Module):
 - **Final Val Loss**: 0.3472
 
 ### **Visualisasi Hasil**
+Setelah Training, model menghasilkan:
+![image](https://github.com/user-attachments/assets/82d2f651-9406-432a-86be-7366523ed8ee)
+
+### **Hasil Inferensi**
 Setelah inferensi, model menghasilkan:
-- Gambar original
-- Probability map (mask prediksi)
-- Overlay mask hijau di atas gambar asli
-- Gambar hasil segmentasi
+![image](https://github.com/user-attachments/assets/a1440896-7a3e-4a65-a9a4-c67aff34770e)
+
+![image](https://github.com/user-attachments/assets/e171ae32-2b2d-4cf6-bd04-935ebd376a8c)
+
 
 ---
 
