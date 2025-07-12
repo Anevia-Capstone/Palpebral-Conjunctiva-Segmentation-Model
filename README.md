@@ -1,7 +1,9 @@
 # Proyek: Segmentasi Konjungtiva Palpebral Menggunakan UNet + ResNet50
-Author: Wiefran Varenzo
+
 ---
 
+
+Author: Wiefran Varenzo
 ## Project Overview (Ulasan Proyek)
 
 ### **Latar Belakang**
